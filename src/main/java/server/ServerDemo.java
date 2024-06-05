@@ -72,7 +72,11 @@ public class ServerDemo {
         public void sayHello(HelloMessage.HelloRequest req, StreamObserver<HelloMessage.HelloResponse> responseObserver) {
 
             HelloMessage.HelloResponse reply = HelloMessage.HelloResponse.newBuilder().setMessage("(server端的sayHello()方法处理结果) Hello," + req.getName()).build();
-
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             // 调用onNext()方法来通知gRPC框架把reply 从server端 发送回 client端
             responseObserver.onNext(reply);
